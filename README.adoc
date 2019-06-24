@@ -155,6 +155,9 @@ Example values may be:
 
 The combined Configuration - in effect a JSON Object - may contain several configuration sections in the form of the JSONs attributes.
 
+=== cacheConfiguration
+TODO: Add content
+
 === devoxxCFP
 TODO: Add content
 
@@ -193,7 +196,36 @@ converted to POJO:: After raw Configuration Data has been loaded
 |===
 
 === tweetwall
-TODO: Add content
+
+Settings for the Tweetwall Application in general.
+
+sectionName:: `tweetwall`
+class:: `org.tweetwallfx.config.TweetwallSettings` (link:{source-link-base}/config/src/main/java/org/tweetwallfx/config/TweetwallSettings.java[source])
+converted to POJO:: After raw Configuration Data has been loaded
+
+.Structure of `tweetwallConfig.json` with configuration structure only
+[source,plain]
+----
+{
+  "tweetwall": {
+    "title",
+    "stylesheetResource",
+    "stylesheetFile",
+    "query"
+  }
+}
+----
+
+[options="header", cols="5*"]
+|===
+| Name | Type | Required | Default Value | Description
+
+| tweetwall | `link:{source-link-base}/config/src/main/java/org/tweetwallfx/config/TweetwallSettings.java[org.tweetwallfx.config.TweetwallSettings]` | YES | | Name of Configuration section
+| title | `java.lang.String` | YES | `null` | title of the Tweetwall. Title will be set on the stage.
+| stylesheetResource | `java.lang.String` | NO | `null` | Resource path containing stylesheet to be read from the Classpath. When set will be added to list of stylesheets known to the scene of Tweetwall.
+| stylesheetFile | `java.lang.String` | NO | `null` | Resource path containing stylesheet to be read from the filesystem. When set will be added to list of stylesheets known to the scene of Tweetwall.
+|query | `java.lang.String` | YES | `null` | Query String that is used to provide Tweets for the Tweetwall. Any that that contains any of the words provided in this String will be processed by the Tweetwall. The words can be regular words, hashtags or user handles.
+|===
 
 === twitter
 TODO: Add content
@@ -237,20 +269,6 @@ TODO: Add content
         "",
         "I've created a set for you for the duration of the event, so you won't",
         "need to change anything here except you want to use your own."
-    ],
-
-    "tweetwall": {
-        "query": "#devoxx"
-    },
-    "comment for tweetwall": [
-        "This block configures some general properties for the Tweetwall instance",
-        "being run. Those include the window title, the javafx stylecheet, and most",
-        "important for you: the query string for the Twitter Stream used to display",
-        "the tweets.",
-        "",
-        "You can list several words there. If any of those words appear in a tweet",
-        "it will be processed by the Tweetwall. The words can be regular words,",
-        "hashtags or user handles."
     ],
 
     "customize_filterchains": {

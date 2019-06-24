@@ -50,8 +50,8 @@ The standard name of the configuration files is `tweetwallConfig.json`. A custom
 
 The Configuration files are searched and read from
 
-. any resource found on the Classpath via the resource path `"/<FILE_NAME>"`,
-. from the configuration file in the users home directory via its path `"~/<FILE_NAME>"`,
+. any resource found on the Classpath via the resource path `/<FILE_NAME>`,
+. from the configuration file in the users home directory via its path `~/<FILE_NAME>`,
 . from the configuration file `etc/<FILE_NAME>` of the execution directory of the process and
 . from the configuration file `<FILE_NAME>` of the execution directory of the process.
 

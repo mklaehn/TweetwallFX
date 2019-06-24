@@ -150,12 +150,11 @@ Example values may be:
 * `myConfig.json`
 * `cinema.json`
 
-
 == Configuration File Sections
 
 The combined Configuration - in effect a JSON Object - may contain several configuration sections in the form of the JSONs attributes.
 
-=== cacheConfiguration
+=== TODO: cacheConfiguration
 TODO: Add content
 
 === connectionSettings
@@ -193,10 +192,10 @@ converted to POJO:: After raw Configuration Data has been loaded
 | password | `java.lang.String` | NO | `""` | Password to use for the proxy connection.
 |===
 
-=== devoxxCFP
+=== TODO: devoxxCFP
 TODO: Add content
 
-=== filterchains
+=== TODO: filterchains
 TODO: Add content
 
 === google
@@ -262,22 +261,22 @@ converted to POJO:: After raw Configuration Data has been loaded
 |query | `java.lang.String` | YES | `null` | Query String that is used to provide Tweets for the Tweetwall. Any that that contains any of the words provided in this String will be processed by the Tweetwall. The words can be regular words, hashtags or user handles.
 |===
 
-=== twitter
+=== TODO: twitter
 TODO: Add content
 
-=== org.tweetwallfx.google.vision.ImageContentFilterStep$Config
+=== TODO: org.tweetwallfx.google.vision.ImageContentFilterStep$Config
 TODO: Add content
 
-=== org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config
+=== TODO: org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config
 TODO: Add content
 
-=== org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config
+=== TODO: org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config
 TODO: Add content
 
-=== org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config
+=== TODO: org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config
 TODO: Add content
 
-=== org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config
+=== TODO: org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config
 TODO: Add content
 
 == Example Configuration File
@@ -446,11 +445,6 @@ Update the `tweetwallConfig.json` file with your OAuth values as follows:
             "accessToken" : "12cF34j9-cF3cGz819x4j2iQ6Vgh4wqmLqksxHzRFt78D3WKiB", <3>
             "accessTokenSecret" : "2DghUiSB5hdg7jFbNKHqx5xRkXNZhnzZtICUPG7Bz92x4" <4>
         }
-    },
-    "tweetwall" : {
-        "query" : "#myevent OR #someothertag",
-        "title" : "The JavaFX Tweetwall for my Event",
-        "stylesheetResource" : "tweetwall.css"
     }
 }
 ----

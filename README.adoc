@@ -178,10 +178,10 @@ converted to POJO:: After raw Configuration Data has been loaded
 |===
 | Name | Type | Required | Default Value | Description
 
-| google | link:{source-link-base}/google-cloud/src/main/java/org/tweetwallfx/google/GoogleSettings.java[GoogleSettings] | NO | | Name of Configuration section
-| credentialFilePath | String | NO | `null` | Path to the credentials required for the authentication with Google APIs. Credentials file can be gotten from https://console.cloud.google.com.
-| cloudVision | link:{source-link-base}/google-cloud/src/main/java/org/tweetwallfx/google/vision/CloudVisionSettings.java[CloudVisionSettings] | NO | `null` | Settings concerning the Google Cloud Vision APIs.
-| featureTypes | Set<link:{source-link-base}/google-cloud/src/main/java/org/tweetwallfx/google/vision/CloudVisionSettings.java#L52-L65[FeatureType]> | NO | `null` | Sets the features that are to requested in a request for image analysis by Google Cloud Vision API.
+| google | `org.tweetwallfx.google.vision.GoogleSettings (link:{source-link-base}/google-cloud/src/main/java/org/tweetwallfx/google/GoogleSettings.java[source])` | NO | | Name of Configuration section
+| credentialFilePath | `java.lang.String` | NO | `null` | Path to the credentials required for the authentication with Google APIs. Credentials file can be gotten from https://console.cloud.google.com.
+| cloudVision | `org.tweetwallfx.google.vision.CloudVisionSettings (link:{source-link-base}/google-cloud/src/main/java/org/tweetwallfx/google/vision/CloudVisionSettings.java[source])` | NO | `null` | Settings concerning the Google Cloud Vision APIs.
+| featureTypes | `java.util.Set<org.tweetwallfx.google.vision.CloudVisionSettings$FeatureType (link:{source-link-base}/google-cloud/src/main/java/org/tweetwallfx/google/vision/CloudVisionSettings.java#L52-L65[source])>` | NO | `null` | Sets the features that are to requested in a request for image analysis by Google Cloud Vision API.
 |===
 
 === tweetwall

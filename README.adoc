@@ -25,12 +25,349 @@
 ////
 
 = JavaFX based TweetWall
+:toc:
+:toclevels: 4
 :project-full-path: TweetWallFX/TweetwallFX
 :github-branch: master
 
 image:https://img.shields.io/badge/license-MIT-blue.svg["MIT License", link="https://github.com/{project-full-path}/blob/{github-branch}/LICENSE"]
 image:https://img.shields.io/travis/{project-full-path}/{github-branch}.svg["Build Status", link="https://travis-ci.org/{project-full-path}"]
 image:https://api.bintray.com/packages/tweetwallfx-team/maven/org.tweetwallfx/images/download.svg[link="https://bintray.com/tweetwallfx-team/maven/org.tweetwallfx/_latestVersion"]
+
+== Ways to configure Tweetwall
+
+There are several ways to influence and configure a Tweetwall. Some of these require to be built into the artefact, like <<fxml-and-css,FXML and CSS>>, while others can be set at runtime, like <<system-properties,System Properties>>, and others via <<configuration-file,Configuration Files>> being read at runtime.
+
+=== Configuration Files
+
+Most of the configuration of the Tweetwall is done using configuration files. The File format JSON and the file content is assumed to be a valid JSON Object. This enabled the compartmentalized configuration in various places and combination of the compartmentalized parts into a combined form which then represents the actual configuration being used by the application.
+
+==== Location of Configuration Files
+
+The standard name of the configuration files is `tweetwallConfig.json`. A custom configuration file name can be specified using the <<orgtweetwallconfigfileName,System Property org.tweetwall.config.fileName>>. 
+
+The Configuration files are searched and read from
+
+. any resource found on the Classpath via the resource path `"/<FILE_NAME>"`,
+. from the configuration file in the users home directory via its path `"~/<FILE_NAME>"`,
+. from the configuration file `etc/<FILE_NAME>` of the execution directory of the process and
+. from the configuration file `<FILE_NAME>` of the execution directory of the process.
+
+`<FILE_NAME>` in this context is first the standard configuration file name `tweetwallConfig.json`. In case the <<orgtweetwallconfigfileName,System Property org.tweetwall.config.fileName>> is set and its value is a different value than the standard configuration file name then those files will be read afterwards.
+
+==== Combining compartmentalized Configuration
+
+The Configuration files - those with the standard configuration file name and those identified from the <<orgtweetwallconfigfileName,System Property org.tweetwall.config.fileName>> - are each read in order and merged into one combined virtual file.
+
+The algorithm for the combination starts out with an empty JSON Object and - one by one - merges each configuration fragment onto that JSON - handled by <<merging-json-objects>>.
+
+===== Merging JSON Objects
+
+Code: link:https://github.com/TweetWallFX/TweetwallFX/blob/master/config/src/main/java/org/tweetwallfx/config/Configuration.java#L307-L318[Configuration::mergeMap]
+
+Two JSON Objects are merged by merging the attributes of the new JSON Object onto those of the existing JSON Object - handled by <<merging-json-attribute-value,Merging JSON Attribute Value>>.
+
+===== Merging JSON Attribute Value
+
+Code: link:https://github.com/TweetWallFX/TweetwallFX/blob/master/config/src/main/java/org/tweetwallfx/config/Configuration.java#L320-L348[Configuration::mergeValue]
+
+The result of a merge of two Attribute Values - in general terms - is either
+
+. an actual merge of the values structure in case of a complex type or
+. the replacement of the old value with the new value.
+
+A JSON Object or an JSON Array is considered to be a complex structure in this context.
+
+Merging two JSON Arrays will result in the new value to replace the previous value as reordering or filtering of an arrays content is not supported.
+
+Merging two JSON Objects will be handled by <<merging-json-objects,Merging JSON Objects>>.
+
+==== Configuration sections
+
+The combined Configuration - in effect a JSON Object - may contain several configuration sections in the form of the JSONs attributes.
+
+===== devoxxCFP
+TODO: Add content
+
+===== filterchains
+TODO: Add content
+
+===== google
+
+Settings for interaction with Google APIs.
+
+sectionName:: `google`
+class:: `org.tweetwallfx.google.GoogleSettings` (link:https://github.com/TweetWallFX/TweetwallFX/blob/master/google-cloud/src/main/java/org/tweetwallfx/google/GoogleSettings.java[source])
+converted to POJO:: After raw Configuration Data has been loaded
+
+.Minimal configuration structure
+[source,groovy]
+----
+{
+  "google": {
+    "credentialFilePath",
+    "cloudVision": {
+      "featureTypes"
+    }
+  }
+}
+----
+
+[options="header", cols="5*"]
+|===
+| Name | Type | Required | Default Value | Description
+
+| google | link:https://github.com/TweetWallFX/TweetwallFX/blob/master/google-cloud/src/main/java/org/tweetwallfx/google/GoogleSettings.java[GoogleSettings] | NO | | Name of Configuration section
+| credentialFilePath | String | NO | `null` | Path to the credentials required for the authentication with Google APIs. Credentials file can be gotten from https://console.cloud.google.com.
+| cloudVision | link:https://github.com/TweetWallFX/TweetwallFX/blob/master/google-cloud/src/main/java/org/tweetwallfx/google/vision/CloudVisionSettings.java[CloudVisionSettings] | NO | `null` | Settings concerning the Google Cloud Vision APIs.
+| featureTypes | Set<link:https://github.com/TweetWallFX/TweetwallFX/blob/master/google-cloud/src/main/java/org/tweetwallfx/google/vision/CloudVisionSettings.java#L52-L65[FeatureType]> | NO | `null` | Sets the features that are to requested in a request for image analysis by Google Cloud Vision API.
+|===
+
+===== tweetwall
+TODO: Add content
+
+===== twitter
+TODO: Add content
+
+===== org.tweetwallfx.google.vision.ImageContentFilterStep$Config
+TODO: Add content
+
+===== org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config
+TODO: Add content
+
+===== org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config
+TODO: Add content
+
+===== org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config
+TODO: Add content
+
+===== org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config
+TODO: Add content
+
+==== Example File
+
+.tweetwallConfig.json
+[source,json]
+----
+{
+
+    "twitter" : {
+        "debugEnabled" : true,
+        "extendedMode" : true,
+        "oauth" : {
+            "consumerKey" : "CONSUMER_KEY",
+            "consumerSecret" : "CONSUMER_SECRET",
+            "accessToken" : "ACCESS_TOKEN",
+            "accessTokenSecret" : "ACCESS_TOKEN_SECRET"
+        }
+    },
+    "comment for twitter": [
+        "Block is used for the configuration of Twitter4J API and its required",
+        "configuration of the Twitter API key and tokens from",
+        "https://developer.twitter.com/",
+        "",
+        "I've created a set for you for the duration of the event, so you won't",
+        "need to change anything here except you want to use your own."
+    ],
+
+    "tweetwall": {
+        "query": "#devoxx"
+    },
+    "comment for tweetwall": [
+        "This block configures some general properties for the Tweetwall instance",
+        "being run. Those include the window title, the javafx stylecheet, and most",
+        "important for you: the query string for the Twitter Stream used to display",
+        "the tweets.",
+        "",
+        "You can list several words there. If any of those words appear in a tweet",
+        "it will be processed by the Tweetwall. The words can be regular words,",
+        "hashtags or user handles."
+    ],
+
+    "customize_filterchains": {
+        "chains": {
+            "twitter": {
+                "domainObjectClassName": "org.tweetwallfx.tweet.api.Tweet",
+                "defaultResult": true,
+                "filterSteps": [
+                    {
+                        "stepClassName": "org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep"
+                    },
+                    {
+                        "stepClassName": "org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep"
+                    },
+                    {
+                        "stepClassName": "org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep"
+                    },
+                    {
+                        "stepClassName": "org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep"
+                    },
+                    {
+                        "stepClassName": "org.tweetwallfx.google.vision.ImageContentFilterStep"
+                    }
+                ]
+            }
+        }
+    },
+    "comment for customize_filterchain": [
+        "The origianl block name is filterchain. If you rename the previous block",
+        "to that name you can customize the filterchains.",
+        "",
+        "The 'twitter' chain is used to evaluate if a Tweet received from Twitter",
+        "(using the query from the 'tweetwall' block) is to be processed by the",
+        "Tweetwall. An object - in this case an object of the declared",
+        "'domainObjectClassName' is passed in order through the filter step. As",
+        "soon as any one of those finds a definite reason to accept/reject the",
+        "object it is handled accordingly. If no definite reason was found then",
+        "the object is accepted if 'defaultResult' is true.",
+        "",
+        "The steps themselves are also configurable and will follow hereafter in",
+        "their default configuration as they are commited in the github repository.",
+        "",
+        "In case you don't/have Google Cloud Vision filtering you can remove the step",
+        "using that feature (i.e. 'org.tweetwallfx.google.vision.ImageContentFilterStep'."
+    ],
+
+    "org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config": {
+        "checkRetweeted": false,
+        "userHandles": [
+            "Devoxx"
+        ]
+    },
+    "comment for org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config": [
+        "This block configures the aforementioned filter step in that it declares",
+        "the user handler of twitter user that will have all their tweets processed",
+        "by the Tweetwall display."
+    ],
+
+    "org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config": {
+        "checkRetweeted": true,
+        "maxLength": 15
+    },
+    "comment for org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config": [
+        "This block configures the aforementioned filter step in that it declares",
+        "the maximum length of any hashtag in a tweet that might still be acceptable",
+        "by other filter steps. If a hashtag has a length larger than declared here",
+        "then the tweet will be rejected from being processed by the Tweetwall",
+        "display.",
+        "This is a low level attempt at rejecting bots and others from junping on",
+        "a trending hashtag."
+    ],
+
+    "org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config": {
+        "checkRetweeted": true,
+        "userHandles": [
+            "turkeytoday"
+        ]
+    },
+    "comment for org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config": [
+        "This block configures the aforementioned filter step in that it declares",
+        "the user handler of twitter user that will have noone of their tweets",
+        "processed by the Tweetwall display.",
+        "@turkeytoday crossposted with the devoxx hashtag last year during Devoxx BE."
+    ],
+
+    "org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config": {
+        "count": 25
+    },
+    "comment for org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config": [
+        "This block configures the aforementioned filter step in that it declares",
+        "the minimum number of followers a twitter user has to have to not have his/her tweets rejected.",
+        "This is a low level attempt at rejecting bots and others from junping on",
+        "a trending hashtag as was the case 2017 with the russian spam bots."
+    ],
+
+    "org.tweetwallfx.google.vision.ImageContentFilterStep$Config": {
+        "checkRetweeted": true,
+        "adult": {
+            "acceptableLikelyhood": "VERY_UNLIKELY"
+        },
+        "medical": {
+            "acceptableLikelyhood": "UNLIKELY"
+        },
+        "racy": {
+            "acceptableLikelyhood": "VERY_UNLIKELY"
+        },
+        "spoof": {
+            "acceptableLikelyhood": "UNLIKELY"
+        },
+        "violence": {
+            "acceptableLikelyhood": "VERY_UNLIKELY"
+        }
+    },
+    "comment for org.tweetwallfx.google.vision.ImageContentFilterStep$Config": [
+        "This block configures the aforementioned filter step in that it declares",
+        "the acceptableLikelyhood (see Google Cloud Vision API) that has to be",
+        "reached for images in a tweet in order to be processed by the Tweetwall",
+        "display. If the tweet does not have an image the tweet is passed to the",
+        "next filter step.",
+        "This step took about 1200ms a call last year during devoxx be."
+    ]
+}
+----
+
+=== FXML and CSS
+
+TODO: Add content
+
+=== System Properties
+
+Certain values are configurable via System Properties. They can be set e.g. by adding a link:++https://docs.gradle.org/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:jvmArgs(java.lang.Object[])++[jvmArg] on a https://docs.gradle.org/current/dsl/org.gradle.api.tasks.JavaExec.html[JavaExec] task in gradle or any similiar way. Setting these values is usually used during development or to test a configuration as these property values will be used instead of a value derived at runtime. This can be the case when testing a schedule display for a day and time in the future.
+
+==== org.tweetwallfx.scheduledata.day
+
+This property sets the value of the day used for displaying schedule based data instead of the determined day name.
+
+* https://github.com/TweetWallFX/TweetwallFX/blob/master/devoxx-cfp-stepengine/src/main/java/org/tweetwallfx/devoxx/cfp/stepengine/dataprovider/ScheduleDataProvider.java[ScheduleDataProvider] uses the name of the day in order to display the upcoming schedule of the day.
+* https://github.com/TweetWallFX/TweetwallFX/blob/master/devoxx-cfp-stepengine/src/main/java/org/tweetwallfx/devoxx/cfp/stepengine/dataprovider/TopTalksTodayDataProvider.java[TopTalksTodayDataProvider] uses the name of the day to display the top rated talks of the day.
+
+Example values may be:
+
+* `monday`
+* `tuesday`
+* `wednesday`
+* `thursday`
+* `friday`
+* `saturday`
+* `sunday`
+
+==== org.tweetwallfx.scheduledata.time
+
+This property sets the value of the time used for displaying schedule based data instead of the determined time.
+
+* https://github.com/TweetWallFX/TweetwallFX/blob/master/devoxx-cfp-stepengine/src/main/java/org/tweetwallfx/devoxx/cfp/stepengine/dataprovider/ScheduleDataProvider.java[ScheduleDataProvider] uses the time to filter for the currently active or upcoming schedule slots.
+
+Example values may be:
+
+* `10:00Z`
+* `09:53Z`
+* `14:15Z`
+
+==== org.tweetwallfx.scheduledata.proposal
+
+This property sets the ID of a Talk to display.
+
+* https://github.com/TweetWallFX/TweetwallFX/blob/master/devoxx-cfp-stepengine/src/main/java/org/tweetwallfx/devoxx/cfp/stepengine/dataprovider/VotedTalk.java[VotedTalk] uses the ID in order to select the talk being displayed in the voted talks Visualization.
+
+Example values may be:
+
+* `CTH-5247`
+* or any other Talk ID from the CFP.
+
+==== org.tweetwall.config.fileName
+
+This property sets a custom file name (including extension) for Configuration files to be read when combining the compartmentalized configuration segments into a combined data structure.
+
+Example values may be:
+
+* `myConfig.json`
+* `cinema.json`
+
+
+
+
+
+
 
 ## Getting OAuth keys
 

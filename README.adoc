@@ -161,8 +161,8 @@ sectionName:: `google`
 class:: `org.tweetwallfx.google.GoogleSettings` (link:{source-link-base}/google-cloud/src/main/java/org/tweetwallfx/google/GoogleSettings.java[source])
 converted to POJO:: After raw Configuration Data has been loaded
 
-.Minimal configuration structure
-[source,groovy]
+.Structure of `tweetwallConfig.json` with configuration structure only
+[source,plain]
 ----
 {
   "google": {

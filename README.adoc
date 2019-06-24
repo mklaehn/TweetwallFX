@@ -158,6 +158,41 @@ The combined Configuration - in effect a JSON Object - may contain several confi
 === cacheConfiguration
 TODO: Add content
 
+=== connectionSettings
+
+Settings concerning the HTTP Connections.
+
+sectionName:: `connectionSettings`
+class:: `org.tweetwallfx.config.ConnectionSettings` (link:{source-link-base}/config/src/main/java/org/tweetwallfx/config/ConnectionSettings.java[source])
+converted to POJO:: After raw Configuration Data has been loaded
+
+.Structure of `tweetwallConfig.json` with this configuration structure only
+[source,plain]
+----
+{
+  "connectionSettings": {
+    "proxy": {
+      "host",
+      "port",
+      "user"",
+      "password";
+    }
+  }
+}
+----
+
+[options="header", cols="5*"]
+|===
+| Name | Type | Required | Default Value | Description
+
+| connectionSettings | `link:{source-link-base}/config/src/main/java/org/tweetwallfx/config/ConnectionSettings.java[org.tweetwallfx.config.ConnectionSettings]` | NO | | Name of Configuration section
+| proxy | `link:{source-link-base}/config/src/main/java/org/tweetwallfx/config/ConnectionSettings.java#L82-L174[org.tweetwallfx.config.ConnectionSettings$Proxy]` | NO | `null` | Proxy setting to use when working with HTTP Connections.
+| host | `java.lang.String` | NO | `""` | Host address of proxy server to use.
+| port | `int` | NO | `-1` | Port number of the proxy server to use.
+| user | `java.lang.String` | NO | `""` | User name to use for the proxy connection.
+| password | `java.lang.String` | NO | `""` | Password to use for the proxy connection.
+|===
+
 === devoxxCFP
 TODO: Add content
 
@@ -172,7 +207,7 @@ sectionName:: `google`
 class:: `org.tweetwallfx.google.GoogleSettings` (link:{source-link-base}/google-cloud/src/main/java/org/tweetwallfx/google/GoogleSettings.java[source])
 converted to POJO:: After raw Configuration Data has been loaded
 
-.Structure of `tweetwallConfig.json` with configuration structure only
+.Structure of `tweetwallConfig.json` with this configuration structure only
 [source,plain]
 ----
 {
@@ -203,7 +238,7 @@ sectionName:: `tweetwall`
 class:: `org.tweetwallfx.config.TweetwallSettings` (link:{source-link-base}/config/src/main/java/org/tweetwallfx/config/TweetwallSettings.java[source])
 converted to POJO:: After raw Configuration Data has been loaded
 
-.Structure of `tweetwallConfig.json` with configuration structure only
+.Structure of `tweetwallConfig.json` with this configuration structure only
 [source,plain]
 ----
 {

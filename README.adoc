@@ -258,11 +258,53 @@ converted to POJO:: After raw Configuration Data has been loaded
 | title | `java.lang.String` | YES | `null` | title of the Tweetwall. Title will be set on the stage.
 | stylesheetResource | `java.lang.String` | NO | `null` | Resource path containing stylesheet to be read from the Classpath. When set will be added to list of stylesheets known to the scene of Tweetwall.
 | stylesheetFile | `java.lang.String` | NO | `null` | Resource path containing stylesheet to be read from the filesystem. When set will be added to list of stylesheets known to the scene of Tweetwall.
-|query | `java.lang.String` | YES | `null` | Query String that is used to provide Tweets for the Tweetwall. Any that that contains any of the words provided in this String will be processed by the Tweetwall. The words can be regular words, hashtags or user handles.
+| query | `java.lang.String` | YES | `null` | Query String that is used to provide Tweets for the Tweetwall. Any that that contains any of the words provided in this String will be processed by the Tweetwall. The words can be regular words, hashtags or user handles.
 |===
 
-=== TODO: twitter
-TODO: Add content
+=== twitter
+
+Settings concerning the twitter client.
+
+sectionName:: `twitter`
+class:: `org.tweetwallfx.tweet.api.config.TwitterSettings` (link:{source-link-base}/tweet-api/src/main/java/org/tweetwallfx/tweet/api/config/TwitterSettings.java[source])
+converted to POJO:: After raw Configuration Data has been loaded
+
+.Structure of `tweetwallConfig.json` with this configuration structure only
+[source,plain]
+----
+{
+  "twitter": {
+    "debugEnabled",
+    "extendedConfig",
+    "extendedMode",
+    "ignoreRateLimit",
+    "oauth: {
+      "consumerKey",
+      "consumerSecret",
+      "accessToken",
+      "accessTokenSecret"
+    }
+  }
+}
+----
+
+[options="header", cols="5*"]
+|===
+| Name | Type | Required | Default Value | Description
+
+| twitter | `link:{source-link-base}/tweet-api/src/main/java/org/tweetwallfx/tweet/api/config/TwitterSettings.java[org.tweetwallfx.tweet.api.config.TwitterSettings]` | YES | | Name of Configuration section
+| debugEnabled | `boolean` | NO | `false` | Flag indicating that the twitter client is to work in debug mode.
+| extendedConfig | `java.lang.String` | NO | `[:]` | Extended configuration for the Twitter Client.
+| extendedMode | `boolean` | NO | `false` | Flag indicating that the Twitter Client is to work in extended mode
+| ignoreRateLimit | `boolean` | NO | `true` | Flag indicating that the Twitter API rate limitations shall be ignored by the Twitter Client.
+| oauth | `link:{source-link-base}/tweet-api/src/main/java/org/tweetwallfx/tweet/api/config/TwitterSettings.java#L180-L272[org.tweetwallfx.tweet.api.config.TwitterSettings$Oauth]` | YES | | OAuth settings the Twitter client is to use in order to connect with Twitter APIs.
+| consumerKey | `java.lang.String` | YES | | The Consumer Key of the Twitter Credentials to use for the Twitter Client.
+| consumerSecret | `java.lang.String` | YES | | The Consumer Secret of the Twitter Credentials to use for the Twitter Client.
+| accessToken | `java.lang.String` | YES | | The Access Token of the Twitter Credentials to use for the Twitter Client.
+| accessTokenSecret | `java.lang.String` | YES | | The Access Token Secret of the Twitter Credentials to use for the Twitter Client.
+|===
+
+The values of the four oauth attribute value (`consumerKey`, `consumerSecret`, `accessToken` and `accessTokenSecret`) are values of Twitter Credentials. The Credentials can be retrieved from https://developer.twitter.com/.
 
 === TODO: org.tweetwallfx.google.vision.ImageContentFilterStep$Config
 TODO: Add content
@@ -285,25 +327,6 @@ TODO: Add content
 [source,json]
 ----
 {
-
-    "twitter" : {
-        "debugEnabled" : true,
-        "extendedMode" : true,
-        "oauth" : {
-            "consumerKey" : "CONSUMER_KEY",
-            "consumerSecret" : "CONSUMER_SECRET",
-            "accessToken" : "ACCESS_TOKEN",
-            "accessTokenSecret" : "ACCESS_TOKEN_SECRET"
-        }
-    },
-    "comment for twitter": [
-        "Block is used for the configuration of Twitter4J API and its required",
-        "configuration of the Twitter API key and tokens from",
-        "https://developer.twitter.com/",
-        "",
-        "I've created a set for you for the duration of the event, so you won't",
-        "need to change anything here except you want to use your own."
-    ],
 
     "customize_filterchains": {
         "chains": {
@@ -432,23 +455,5 @@ TODO: Add content
 Create a new Application for TweetWall within https://apps.twitter.com[Twitter Apps site] signing in with the twitter account that will be used to run the TweetWallFX.
 You have to enter at least the website of your company. After doing so generate a new access token under `Keys and Access Tokens`.
 
-Update the `tweetwallConfig.json` file with your OAuth values as follows:
+Update your Configuration file `tweetwallConfig.json` and configure the <<twitter,Configuration Section twitter>>.
 
-[source,plain]
-----
-{
-    "twitter" : {
-        "extendedMode" : true,
-        "oauth" : {
-            "consumerKey" : "v8SvGzboGrvU148cKs8PghI1v", <1>
-            "consumerSecret" : "12w6vg612hgvoGk0iysMlLvKfh0ouMcVg00RWG8rV6jccZ8RUg", <2>
-            "accessToken" : "12cF34j9-cF3cGz819x4j2iQ6Vgh4wqmLqksxHzRFt78D3WKiB", <3>
-            "accessTokenSecret" : "2DghUiSB5hdg7jFbNKHqx5xRkXNZhnzZtICUPG7Bz92x4" <4>
-        }
-    }
-}
-----
-<1> The Consumer Key (API Key)
-<2> The Consumer Secret (API Secret)
-<3> The Access Token
-<4> The Access Token Secret

@@ -39,15 +39,19 @@ toc::[]
 
 == Ways to configure Tweetwall
 
-There are several ways to influence and configure a Tweetwall. Some of these require to be built into the artefact, like <<fxml-and-css,FXML and CSS>>, while others can be set at runtime, like <<system-properties,System Properties>>, and others via <<configuration-file,Configuration Files>> being read at runtime.
+There are several ways to influence and configure a Tweetwall.
+Some of these require to be built into the artefact, like <<fxml-and-css,FXML and CSS>>, while others can be set at runtime, like <<system-properties,System Properties>>, and others via <<configuration-file,Configuration Files>> being read at runtime.
 
 === Configuration Files
 
-Most of the configuration of the Tweetwall is done using configuration files. The File format JSON and the file content is assumed to be a valid JSON Object. This enabled the compartmentalized configuration in various places and combination of the compartmentalized parts into a combined form which then represents the actual configuration being used by the application.
+Most of the configuration of the Tweetwall is done using configuration files.
+The File format JSON and the file content is assumed to be a valid JSON Object.
+This enabled the compartmentalized configuration in various places and combination of the compartmentalized parts into a combined form which then represents the actual configuration being used by the application.
 
 ==== Location of Configuration Files
 
-The standard name of the configuration files is `tweetwallConfig.json`. A custom configuration file name can be specified using the <<orgtweetwallconfigfileName,System Property org.tweetwall.config.fileName>>. 
+The standard name of the configuration files is `tweetwallConfig.json`.
+A custom configuration file name can be specified using the <<orgtweetwallconfigfileName,System Property org.tweetwall.config.fileName>>. 
 
 The Configuration files are searched and read from
 
@@ -56,7 +60,8 @@ The Configuration files are searched and read from
 . from the configuration file `etc/<FILE_NAME>` of the execution directory of the process and
 . from the configuration file `<FILE_NAME>` of the execution directory of the process.
 
-`<FILE_NAME>` in this context is first the standard configuration file name `tweetwallConfig.json`. In case the <<orgtweetwallconfigfileName,System Property org.tweetwall.config.fileName>> is set and its value is a different value than the standard configuration file name then those files will be read afterwards.
+`<FILE_NAME>` in this context is first the standard configuration file name `tweetwallConfig.json`.
+In case the <<orgtweetwallconfigfileName,System Property org.tweetwall.config.fileName>> is set and its value is a different value than the standard configuration file name then those files will be read afterwards.
 
 ==== Combining compartmentalized Configuration
 
@@ -91,7 +96,10 @@ TODO: Add content
 
 === System Properties
 
-Certain values are configurable via System Properties. They can be set e.g. by adding a link:++https://docs.gradle.org/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:jvmArgs(java.lang.Object[])++[jvmArg] on a https://docs.gradle.org/current/dsl/org.gradle.api.tasks.JavaExec.html[JavaExec] task in gradle or any similiar way. Setting these values is usually used during development or to test a configuration as these property values will be used instead of a value derived at runtime. This can be the case when testing a schedule display for a day and time in the future.
+Certain values are configurable via System Properties.
+They can be set e.g. by adding a link:++https://docs.gradle.org/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:jvmArgs(java.lang.Object[])++[jvmArg] on a https://docs.gradle.org/current/dsl/org.gradle.api.tasks.JavaExec.html[JavaExec] task in gradle or any similiar way.
+Setting these values is usually used during development or to test a configuration as these property values will be used instead of a value derived at runtime.
+This can be the case when testing a schedule display for a day and time in the future.
 
 ==== org.tweetwallfx.scheduledata.day
 
@@ -181,7 +189,7 @@ converted to POJO:: After raw Configuration Data has been loaded
 | google | `link:{source-link-base}/google-cloud/src/main/java/org/tweetwallfx/google/GoogleSettings.java[org.tweetwallfx.google.vision.GoogleSettings]` | NO | | Name of Configuration section
 | credentialFilePath | `java.lang.String` | NO | `null` | Path to the credentials required for the authentication with Google APIs. Credentials file can be gotten from https://console.cloud.google.com.
 | cloudVision | `link:{source-link-base}/google-cloud/src/main/java/org/tweetwallfx/google/vision/CloudVisionSettings.java[org.tweetwallfx.google.vision.CloudVisionSettings]` | NO | `null` | Settings concerning the Google Cloud Vision APIs.
-| featureTypes | `java.util.Set<link:{source-link-base}/google-cloud/src/main/java/org/tweetwallfx/google/vision/CloudVisionSettings.java#L52-L65[org.tweetwallfx.google.vision.CloudVisionSettings$FeatureType]>` | NO | `null` | Sets the features that are to requested in a request for image analysis by Google Cloud Vision API.
+| featureTypes | `java.util.Set<link:{source-link-base}/google-cloud/src/main/java/org/tweetwallfx/google/vision/CloudVisionSettings.java#L52-L65[org.tweetwallfx.google.vision.CloudVisionSettings$FeatureType]>` | NO | `["SAFE_SEARCH_DETECTION", "TEXT_DETECTION"]` | Sets the features that are to requested in a request for image analysis by Google Cloud Vision API.
 |===
 
 === tweetwall
@@ -369,9 +377,8 @@ TODO: Add content
 
 == Getting OAuth keys
 
-Create a new Application for TweetWall within https://apps.twitter.com[Twitter Apps site] signing in
-with the twitter account that will be used to run the TweetWallFX. You have to enter at least the
-website of your company. After doing so generate a new access token under `Keys and Access Tokens`.
+Create a new Application for TweetWall within https://apps.twitter.com[Twitter Apps site] signing in with the twitter account that will be used to run the TweetWallFX.
+You have to enter at least the website of your company. After doing so generate a new access token under `Keys and Access Tokens`.
 
 Update the `tweetwallConfig.json` file with your OAuth values as follows:
 

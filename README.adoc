@@ -142,7 +142,7 @@ Example values may be:
 * `cinema.json`
 
 
-== Configuration sections
+== Configuration File Sections
 
 The combined Configuration - in effect a JSON Object - may contain several configuration sections in the form of the JSONs attributes.
 

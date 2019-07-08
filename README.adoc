@@ -219,6 +219,52 @@ converted to POJO:: After raw Configuration Data has been loaded
 
 TODO: Add content
 
+    "customize_filterchains": {
+        "chains": {
+            "twitter": {
+                "domainObjectClassName": "org.tweetwallfx.tweet.api.Tweet",
+                "defaultResult": true,
+                "filterSteps": [
+                    {
+                        "stepClassName": "org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep"
+                    },
+                    {
+                        "stepClassName": "org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep"
+                    },
+                    {
+                        "stepClassName": "org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep"
+                    },
+                    {
+                        "stepClassName": "org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep"
+                    },
+                    {
+                        "stepClassName": "org.tweetwallfx.google.vision.ImageContentFilterStep"
+                    }
+                ]
+            }
+        }
+    },
+    "comment for customize_filterchain": [
+        "The origianl block name is filterchain. If you rename the previous block",
+        "to that name you can customize the filterchains.",
+        "",
+        "The 'twitter' chain is used to evaluate if a Tweet received from Twitter",
+        "(using the query from the 'tweetwall' block) is to be processed by the",
+        "Tweetwall. An object - in this case an object of the declared",
+        "'domainObjectClassName' is passed in order through the filter step. As",
+        "soon as any one of those finds a definite reason to accept/reject the",
+        "object it is handled accordingly. If no definite reason was found then",
+        "the object is accepted if 'defaultResult' is true.",
+        "",
+        "The steps themselves are also configurable and will follow hereafter in",
+        "their default configuration as they are commited in the github repository.",
+        "",
+        "In case you don't/have Google Cloud Vision filtering you can remove the step",
+        "using that feature (i.e. 'org.tweetwallfx.google.vision.ImageContentFilterStep'."
+    ],
+
+TODO: Add content
+
 === google
 
 Settings for interaction with Google APIs.
@@ -250,6 +296,95 @@ converted to POJO:: After raw Configuration Data has been loaded
 | featureTypes | `java.util.Set<link:{source-link-base}/google-cloud/src/main/java/org/tweetwallfx/google/vision/CloudVisionSettings.java#L52-L65[org.tweetwallfx.google.vision.CloudVisionSettings$FeatureType]>` | NO | `["SAFE_SEARCH_DETECTION", "TEXT_DETECTION"]` | Sets the features that are to requested in a request for image analysis by Google Cloud Vision API.
 |===
 
+=== TODO: org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config
+
+TODO: Add content
+
+sectionName:: `org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config`
+class:: `org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config` (link:{source-link-base}/cache/src/main/java/org/tweetwallfx/cache/CacheSettings.java[source])
+converted to POJO:: On instantiation of the FilterStep
+
+TODO: Add content
+
+    "org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config": {
+        "checkRetweeted": false,
+        "userHandles": [
+            "Devoxx"
+        ]
+    },
+    "comment for org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config": [
+        "This block configures the aforementioned filter step in that it declares",
+        "the user handler of twitter user that will have all their tweets processed",
+        "by the Tweetwall display."
+    ],
+
+TODO: Add content
+
+=== TODO: org.tweetwallfx.google.vision.ImageContentFilterStep$Config
+
+TODO: Add content
+
+sectionName:: `org.tweetwallfx.google.vision.ImageContentFilterStep$Config`
+class:: `org.tweetwallfx.google.vision.ImageContentFilterStep$Config` (link:{source-link-base}/cache/src/main/java/org/tweetwallfx/cache/CacheSettings.java[source])
+converted to POJO:: On instantiation of the FilterStep
+
+TODO: Add content
+
+    "org.tweetwallfx.google.vision.ImageContentFilterStep$Config": {
+        "checkRetweeted": true,
+        "adult": {
+            "acceptableLikelyhood": "VERY_UNLIKELY"
+        },
+        "medical": {
+            "acceptableLikelyhood": "UNLIKELY"
+        },
+        "racy": {
+            "acceptableLikelyhood": "VERY_UNLIKELY"
+        },
+        "spoof": {
+            "acceptableLikelyhood": "UNLIKELY"
+        },
+        "violence": {
+            "acceptableLikelyhood": "VERY_UNLIKELY"
+        }
+    },
+    "comment for org.tweetwallfx.google.vision.ImageContentFilterStep$Config": [
+        "This block configures the aforementioned filter step in that it declares",
+        "the acceptableLikelyhood (see Google Cloud Vision API) that has to be",
+        "reached for images in a tweet in order to be processed by the Tweetwall",
+        "display. If the tweet does not have an image the tweet is passed to the",
+        "next filter step.",
+        "This step took about 1200ms a call last year during devoxx be."
+    ]
+
+TODO: Add content
+
+=== TODO: org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config
+
+TODO: Add content
+
+sectionName:: `org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config`
+class:: `org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config` (link:{source-link-base}/cache/src/main/java/org/tweetwallfx/cache/CacheSettings.java[source])
+converted to POJO:: On instantiation of the FilterStep
+
+TODO: Add content
+
+    "org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config": {
+        "checkRetweeted": true,
+        "maxLength": 15
+    },
+    "comment for org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config": [
+        "This block configures the aforementioned filter step in that it declares",
+        "the maximum length of any hashtag in a tweet that might still be acceptable",
+        "by other filter steps. If a hashtag has a length larger than declared here",
+        "then the tweet will be rejected from being processed by the Tweetwall",
+        "display.",
+        "This is a low level attempt at rejecting bots and others from junping on",
+        "a trending hashtag."
+    ],
+
+TODO: Add content
+
 === org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config
 
 Settings for the `link:{source-link-base}/tweet-api/src/main/java/org/tweetwallfx/tweet/api/filter/RejectFromSenderFilterStep.java[org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep]` FilterStep concerning the twitter client.
@@ -278,6 +413,28 @@ converted to POJO:: On instantiation of the FilterStep
 | checkRetweeted | `boolean` | NO | `false` | If `true` indicates that not only the current Tweet is to be evaluated but also the tweet this tweet might have retweeted.
 | userHandles | `java.util.Set<java.lang.String>` | NO | `empty Set` | The Set of Twitter User handles (excluding the `@`) that will have their Tweets rejected.
 |===
+
+=== TODO: org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config
+
+TODO: Add content
+
+sectionName:: `org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config`
+class:: `org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config` (link:{source-link-base}/cache/src/main/java/org/tweetwallfx/cache/CacheSettings.java[source])
+converted to POJO:: On instantiation of the FilterStep
+
+TODO: Add content
+
+    "org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config": {
+        "count": 25
+    },
+    "comment for org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config": [
+        "This block configures the aforementioned filter step in that it declares",
+        "the minimum number of followers a twitter user has to have to not have his/her tweets rejected.",
+        "This is a low level attempt at rejecting bots and others from junping on",
+        "a trending hashtag as was the case 2017 with the russian spam bots."
+    ],
+
+TODO: Add content
 
 === TODO: stepEngine
 
@@ -366,159 +523,12 @@ converted to POJO:: After raw Configuration Data has been loaded
 
 The values of the four oauth attribute value (`consumerKey`, `consumerSecret`, `accessToken` and `accessTokenSecret`) are values of Twitter Credentials. The Credentials can be retrieved from https://developer.twitter.com/.
 
-=== TODO: org.tweetwallfx.google.vision.ImageContentFilterStep$Config
-
-TODO: Add content
-
-sectionName:: `org.tweetwallfx.google.vision.ImageContentFilterStep$Config`
-class:: `org.tweetwallfx.google.vision.ImageContentFilterStep$Config` (link:{source-link-base}/cache/src/main/java/org/tweetwallfx/cache/CacheSettings.java[source])
-converted to POJO:: On instantiation of the FilterStep
-
-TODO: Add content
-
-=== TODO: org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config
-
-TODO: Add content
-
-sectionName:: `org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config`
-class:: `org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config` (link:{source-link-base}/cache/src/main/java/org/tweetwallfx/cache/CacheSettings.java[source])
-converted to POJO:: On instantiation of the FilterStep
-
-TODO: Add content
-
-=== TODO: org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config
-
-TODO: Add content
-
-sectionName:: `org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config`
-class:: `org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config` (link:{source-link-base}/cache/src/main/java/org/tweetwallfx/cache/CacheSettings.java[source])
-converted to POJO:: On instantiation of the FilterStep
-
-TODO: Add content
-
-=== TODO: org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config
-
-TODO: Add content
-
-sectionName:: `org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config`
-class:: `org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config` (link:{source-link-base}/cache/src/main/java/org/tweetwallfx/cache/CacheSettings.java[source])
-converted to POJO:: On instantiation of the FilterStep
-
-TODO: Add content
-
 == Example Configuration File
 
 .tweetwallConfig.json
 [source,json]
 ----
 {
-
-    "customize_filterchains": {
-        "chains": {
-            "twitter": {
-                "domainObjectClassName": "org.tweetwallfx.tweet.api.Tweet",
-                "defaultResult": true,
-                "filterSteps": [
-                    {
-                        "stepClassName": "org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep"
-                    },
-                    {
-                        "stepClassName": "org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep"
-                    },
-                    {
-                        "stepClassName": "org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep"
-                    },
-                    {
-                        "stepClassName": "org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep"
-                    },
-                    {
-                        "stepClassName": "org.tweetwallfx.google.vision.ImageContentFilterStep"
-                    }
-                ]
-            }
-        }
-    },
-    "comment for customize_filterchain": [
-        "The origianl block name is filterchain. If you rename the previous block",
-        "to that name you can customize the filterchains.",
-        "",
-        "The 'twitter' chain is used to evaluate if a Tweet received from Twitter",
-        "(using the query from the 'tweetwall' block) is to be processed by the",
-        "Tweetwall. An object - in this case an object of the declared",
-        "'domainObjectClassName' is passed in order through the filter step. As",
-        "soon as any one of those finds a definite reason to accept/reject the",
-        "object it is handled accordingly. If no definite reason was found then",
-        "the object is accepted if 'defaultResult' is true.",
-        "",
-        "The steps themselves are also configurable and will follow hereafter in",
-        "their default configuration as they are commited in the github repository.",
-        "",
-        "In case you don't/have Google Cloud Vision filtering you can remove the step",
-        "using that feature (i.e. 'org.tweetwallfx.google.vision.ImageContentFilterStep'."
-    ],
-
-    "org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config": {
-        "checkRetweeted": false,
-        "userHandles": [
-            "Devoxx"
-        ]
-    },
-    "comment for org.tweetwallfx.tweet.api.filter.AcceptFromSenderFilterStep$Config": [
-        "This block configures the aforementioned filter step in that it declares",
-        "the user handler of twitter user that will have all their tweets processed",
-        "by the Tweetwall display."
-    ],
-
-    "org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config": {
-        "checkRetweeted": true,
-        "maxLength": 15
-    },
-    "comment for org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config": [
-        "This block configures the aforementioned filter step in that it declares",
-        "the maximum length of any hashtag in a tweet that might still be acceptable",
-        "by other filter steps. If a hashtag has a length larger than declared here",
-        "then the tweet will be rejected from being processed by the Tweetwall",
-        "display.",
-        "This is a low level attempt at rejecting bots and others from junping on",
-        "a trending hashtag."
-    ],
-
-    "org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config": {
-        "count": 25
-    },
-    "comment for org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config": [
-        "This block configures the aforementioned filter step in that it declares",
-        "the minimum number of followers a twitter user has to have to not have his/her tweets rejected.",
-        "This is a low level attempt at rejecting bots and others from junping on",
-        "a trending hashtag as was the case 2017 with the russian spam bots."
-    ],
-
-    "org.tweetwallfx.google.vision.ImageContentFilterStep$Config": {
-        "checkRetweeted": true,
-        "adult": {
-            "acceptableLikelyhood": "VERY_UNLIKELY"
-        },
-        "medical": {
-            "acceptableLikelyhood": "UNLIKELY"
-        },
-        "racy": {
-            "acceptableLikelyhood": "VERY_UNLIKELY"
-        },
-        "spoof": {
-            "acceptableLikelyhood": "UNLIKELY"
-        },
-        "violence": {
-            "acceptableLikelyhood": "VERY_UNLIKELY"
-        }
-    },
-    "comment for org.tweetwallfx.google.vision.ImageContentFilterStep$Config": [
-        "This block configures the aforementioned filter step in that it declares",
-        "the acceptableLikelyhood (see Google Cloud Vision API) that has to be",
-        "reached for images in a tweet in order to be processed by the Tweetwall",
-        "display. If the tweet does not have an image the tweet is passed to the",
-        "next filter step.",
-        "This step took about 1200ms a call last year during devoxx be."
-    ]
 }
 ----
 

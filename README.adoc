@@ -367,7 +367,7 @@ converted to POJO:: On instantiation of the FilterStep
 
 TODO: Add content
 
-=== TODO: org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config
+=== org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config
 
 Settings for the `link:{source-link-base}/tweet-api/src/main/java/org/tweetwallfx/tweet/api/filter/RejectFromSenderFilterStep.java[org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep]` FilterStep concerning the twitter client.
 The FilterStep will reject Tweets based on the User handle of the User sending Tweet if the User handle is in the  `userHandles` Set.

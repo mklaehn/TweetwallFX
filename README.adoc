@@ -372,7 +372,7 @@ TODO: Add content
 TODO: Add content
 
 sectionName:: `org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config`
-class:: `org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config` (link:{source-link-base}/cache/src/main/java/org/tweetwallfx/cache/CacheSettings.java[source])
+class:: `org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config` (link:{source-link-base}/tweet-api/src/main/java/org/tweetwallfx/tweet/api/filter/RejectFromSenderFilterStep.java#L98-L156[source])
 converted to POJO:: On instantiation of the FilterStep
 
 TODO: Add content

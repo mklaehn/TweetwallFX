@@ -250,6 +250,35 @@ converted to POJO:: After raw Configuration Data has been loaded
 | featureTypes | `java.util.Set<link:{source-link-base}/google-cloud/src/main/java/org/tweetwallfx/google/vision/CloudVisionSettings.java#L52-L65[org.tweetwallfx.google.vision.CloudVisionSettings$FeatureType]>` | NO | `["SAFE_SEARCH_DETECTION", "TEXT_DETECTION"]` | Sets the features that are to requested in a request for image analysis by Google Cloud Vision API.
 |===
 
+=== org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config
+
+Settings for the `link:{source-link-base}/tweet-api/src/main/java/org/tweetwallfx/tweet/api/filter/RejectFromSenderFilterStep.java[org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep]` FilterStep concerning the twitter client.
+The FilterStep will reject Tweets based on the User handle of the User sending Tweet if the User handle is in the  `userHandles` Set.
+
+sectionName:: `org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config`
+class:: `org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config` (link:{source-link-base}/tweet-api/src/main/java/org/tweetwallfx/tweet/api/filter/RejectFromSenderFilterStep.java#L98-L156[source])
+converted to POJO:: On instantiation of the FilterStep
+
+.Structure of `tweetwallConfig.json` with this configuration structure only
+[source,plain]
+----
+{
+  "org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config": {
+    "checkRetweeted",
+    "userHandles",
+  }
+}
+----
+
+[options="header", cols="5*"]
+|===
+| Name | Type | Required | Default Value | Description
+
+| org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config | `link:{source-link-base}/tweet-api/src/main/java/org/tweetwallfx/tweet/api/filter/RejectFromSenderFilterStep.java#L98-L156[org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config]` | NO | | Name of Configuration section
+| checkRetweeted | `boolean` | NO | `false` | If `true` indicates that not only the current Tweet is to be evaluated but also the tweet this tweet might have retweeted.
+| userHandles | `java.util.Set<java.lang.String>` | NO | `empty Set` | The Set of Twitter User handles (excluding the `@`) that will have their Tweets rejected.
+|===
+
 === TODO: stepEngine
 
 TODO: Add content
@@ -366,35 +395,6 @@ class:: `org.tweetwallfx.tweet.api.filter.MaxHashtagLengthFilterStep$Config` (li
 converted to POJO:: On instantiation of the FilterStep
 
 TODO: Add content
-
-=== org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config
-
-Settings for the `link:{source-link-base}/tweet-api/src/main/java/org/tweetwallfx/tweet/api/filter/RejectFromSenderFilterStep.java[org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep]` FilterStep concerning the twitter client.
-The FilterStep will reject Tweets based on the User handle of the User sending Tweet if the User handle is in the  `userHandles` Set.
-
-sectionName:: `org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config`
-class:: `org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config` (link:{source-link-base}/tweet-api/src/main/java/org/tweetwallfx/tweet/api/filter/RejectFromSenderFilterStep.java#L98-L156[source])
-converted to POJO:: On instantiation of the FilterStep
-
-.Structure of `tweetwallConfig.json` with this configuration structure only
-[source,plain]
-----
-{
-  "org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config": {
-    "checkRetweeted",
-    "userHandles",
-  }
-}
-----
-
-[options="header", cols="5*"]
-|===
-| Name | Type | Required | Default Value | Description
-
-| org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config | `link:{source-link-base}/tweet-api/src/main/java/org/tweetwallfx/tweet/api/filter/RejectFromSenderFilterStep.java#L98-L156[org.tweetwallfx.tweet.api.filter.RejectFromSenderFilterStep$Config]` | NO | | Name of Configuration section
-| checkRetweeted | `boolean` | NO | `false` | If `true` indicates that not only the current Tweet is to be evaluated but also the tweet this tweet might have retweeted.
-| userHandles | `java.util.Set<java.lang.String>` | NO | `empty Set` | The Set of Twitter User handles (excluding the `@`) that will have their Tweets rejected.
-|===
 
 === TODO: org.tweetwallfx.tweet.api.filter.UserMinimumFollwerCountFilterStep$Config
 

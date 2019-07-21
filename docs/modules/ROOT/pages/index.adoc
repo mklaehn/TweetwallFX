@@ -1,6 +1,9 @@
 = Welcome to TweetWallFX Core!
-
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
 // Settings
 :idprefix:
 :idseparator: -
 
+Hello World

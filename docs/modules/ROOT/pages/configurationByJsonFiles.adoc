@@ -1,0 +1,9 @@
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
+// Settings
+:idprefix:
+:idseparator: -
+
+= Configuration by Json Configuration Files
+TODO

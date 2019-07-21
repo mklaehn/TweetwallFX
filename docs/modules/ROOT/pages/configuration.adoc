@@ -1,0 +1,10 @@
+ifndef::env-site,env-github[]
+include::_attributes.adoc[]
+endif::[]
+// Settings
+:idprefix:
+:idseparator: -
+
+= Configuration
+There are several ways to influence and configure a Tweetwall.
+Some of these require to be built into the artefact, like FXML and CSS, while others can be set at runtime, like System Properties, and others via Configuration Files being read at runtime.

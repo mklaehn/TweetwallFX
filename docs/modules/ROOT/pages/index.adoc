@@ -1,0 +1,6 @@
+= Welcome to TweetWallFX Core!
+
+// Settings
+:idprefix:
+:idseparator: -
+

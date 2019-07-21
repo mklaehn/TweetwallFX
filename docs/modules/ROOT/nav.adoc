@@ -1,1 +1,5 @@
 * xref:index.adoc[Welcome]
+* xref:configuration.adoc[Configuration]
+** xref:configurationByJsonFiles.adoc[by JSON Configuration Files]
+** xref:configurationByFxmlCss.adoc[by FXML/CSS]
+** xref:configurationBySystemProperty.adoc[by System Properties]

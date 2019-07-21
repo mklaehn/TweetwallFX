@@ -6,4 +6,5 @@ endif::[]
 :idseparator: -
 
 = Configuration by FXML / CSS
+
 TODO

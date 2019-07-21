@@ -1,5 +1,5 @@
 name: core
-title: TweetWallFX Core
+title: "TweetWallFX Core"
 version: master
 nav:
   - modules/ROOT/nav.adoc

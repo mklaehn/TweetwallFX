@@ -1,0 +1,6 @@
+:github-branch: master
+:source-link-base: https://github.com/TweetWallFX/TweetwallFX/blob/{github-branch}
+
+// Settings
+:idprefix:
+:idseparator: -

@@ -1,10 +1,55 @@
+= Configuration by Json Configuration Files
+
+ifdef::env-site[]
+include::_attributesGlobal.adoc[]
+endif::[]
+
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
-// Settings
-:idprefix:
-:idseparator: -
 
-= Configuration by Json Configuration Files
+Most of the configuration of the Tweetwall is done using configuration files.
+The File format JSON and the file content is assumed to be a valid JSON Object.
+This enabled the compartmentalized configuration in various places and combination of the compartmentalized parts into a combined form which then represents the actual configuration being used by the application.
 
-TODO
+== Location of Configuration Files
+
+The standard name of the configuration files is `tweetwallConfig.json`.
+A custom configuration file name can be specified using the <<orgtweetwallconfigfileName,System Property org.tweetwall.config.fileName>>. 
+
+The Configuration files are searched and read from
+
+. any resource found on the Classpath via the resource path `/<FILE_NAME>`,
+. from the configuration file in the users home directory via its path `~/<FILE_NAME>`,
+. from the configuration file `etc/<FILE_NAME>` of the execution directory of the process and
+. from the configuration file `<FILE_NAME>` of the execution directory of the process.
+
+`<FILE_NAME>` in this context is first the standard configuration file name `tweetwallConfig.json`.
+In case the <<orgtweetwallconfigfileName,System Property org.tweetwall.config.fileName>> is set and its value is a different value than the standard configuration file name then those files will be read afterwards.
+
+== Combining compartmentalized Configuration
+
+The Configuration files - those with the standard configuration file name and those identified from the <<orgtweetwallconfigfileName,System Property org.tweetwall.config.fileName>> - are each read in order and merged into one combined virtual file.
+
+The algorithm for the combination starts out with an empty JSON Object and - one by one - merges each configuration fragment onto that JSON - handled by <<merging-json-objects>>.
+
+=== Merging JSON Objects
+
+Code: link:{source-link-base}/config/src/main/java/org/tweetwallfx/config/Configuration.java#L307-L318[Configuration::mergeMap]
+
+Two JSON Objects are merged by merging the attributes of the new JSON Object onto those of the existing JSON Object - handled by <<merging-json-attribute-value,Merging JSON Attribute Value>>.
+
+=== Merging JSON Attribute Value
+
+Code: link:{source-link-base}/config/src/main/java/org/tweetwallfx/config/Configuration.java#L320-L348[Configuration::mergeValue]
+
+The result of a merge of two Attribute Values - in general terms - is either
+
+. an actual merge of the values structure in case of a complex type or
+. the replacement of the old value with the new value.
+
+A JSON Object or an JSON Array is considered to be a complex structure in this context.
+
+Merging two JSON Arrays will result in the new value to replace the previous value as reordering or filtering of an arrays content is not supported.
+
+Merging two JSON Objects will be handled by <<merging-json-objects,Merging JSON Objects>>.

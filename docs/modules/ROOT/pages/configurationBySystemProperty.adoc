@@ -1,10 +1,63 @@
+= Configuration by System Property
+
+ifdef::env-site[]
+include::_attributesGlobal.adoc[]
+endif::[]
+
 ifndef::env-site,env-github[]
 include::_attributes.adoc[]
 endif::[]
-// Settings
-:idprefix:
-:idseparator: -
 
-= Configuration by System Property
+Certain values are configurable via System Properties.
+They can be set e.g. by adding a link:++https://docs.gradle.org/current/dsl/org.gradle.api.tasks.JavaExec.html#org.gradle.api.tasks.JavaExec:jvmArgs(java.lang.Object[])++[jvmArg] on a https://docs.gradle.org/current/dsl/org.gradle.api.tasks.JavaExec.html[JavaExec] task in gradle or any similiar way.
+Setting these values is usually used during development or to test a configuration as these property values will be used instead of a value derived at runtime.
+This can be the case when testing a schedule display for a day and time in the future.
 
-TODO
+== org.tweetwallfx.scheduledata.day
+
+This property sets the value of the day used for displaying schedule based data instead of the determined day name.
+
+* link:{source-link-base}/devoxx-cfp-stepengine/src/main/java/org/tweetwallfx/devoxx/cfp/stepengine/dataprovider/ScheduleDataProvider.java[ScheduleDataProvider] uses the name of the day in order to display the upcoming schedule of the day.
+* link:{source-link-base}/devoxx-cfp-stepengine/src/main/java/org/tweetwallfx/devoxx/cfp/stepengine/dataprovider/TopTalksTodayDataProvider.java[TopTalksTodayDataProvider] uses the name of the day to display the top rated talks of the day.
+
+Example values may be:
+
+* `monday`
+* `tuesday`
+* `wednesday`
+* `thursday`
+* `friday`
+* `saturday`
+* `sunday`
+
+== org.tweetwallfx.scheduledata.time
+
+This property sets the value of the time used for displaying schedule based data instead of the determined time.
+
+* link:{source-link-base}/devoxx-cfp-stepengine/src/main/java/org/tweetwallfx/devoxx/cfp/stepengine/dataprovider/ScheduleDataProvider.java[ScheduleDataProvider] uses the time to filter for the currently active or upcoming schedule slots.
+
+Example values may be:
+
+* `10:00Z`
+* `09:53Z`
+* `14:15Z`
+
+== org.tweetwallfx.scheduledata.proposal
+
+This property sets the ID of a Talk to display.
+
+* link:{source-link-base}/devoxx-cfp-stepengine/src/main/java/org/tweetwallfx/devoxx/cfp/stepengine/dataprovider/VotedTalk.java[VotedTalk] uses the ID in order to select the talk being displayed in the voted talks Visualization.
+
+Example values may be:
+
+* `CTH-5247`
+* or any other Talk ID from the CFP.
+
+== org.tweetwall.config.fileName
+
+This property sets a custom file name (including extension) for Configuration files to be read when combining the compartmentalized configuration segments into a combined data structure.
+
+Example values may be:
+
+* `myConfig.json`
+* `cinema.json`

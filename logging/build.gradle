@@ -25,6 +25,6 @@
 apply plugin: 'java-library'
 
 dependencies {
-    api group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.0'
+    api group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.2'
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.0'
 }

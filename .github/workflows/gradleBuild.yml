@@ -46,18 +46,18 @@ jobs:
 
       # Run assemble tasks
       - name: Run assemble tasks
-        uses: gradle/gradle-build-action@937999e9cc2425eddc7fd62d1053baf041147db7
+        uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
         with:
           arguments: --no-daemon --refresh-dependencies --warning-mode all assemble
 
       # Run test tasks
       - name: Run test tasks
-        uses: gradle/gradle-build-action@937999e9cc2425eddc7fd62d1053baf041147db7
+        uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
         with:
           arguments: --no-daemon --warning-mode all test
 
       # Run check tasks
       - name: Run check tasks
-        uses: gradle/gradle-build-action@937999e9cc2425eddc7fd62d1053baf041147db7
+        uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
         with:
           arguments: --no-daemon --warning-mode all check

@@ -164,7 +164,7 @@ allprojects {
             testFramework group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
             testFramework group: 'org.mockito', name: 'mockito-core', version: '4.6.0'
 
-            testRuntimeOnly group: 'org.mockito', name: 'mockito-inline', version: '4.6.0'
+            testRuntimeOnly group: 'org.mockito', name: 'mockito-inline', version: '4.6.1'
         }
 
         ext {

@@ -158,7 +158,7 @@ allprojects {
             jaxb group: 'jakarta.activation', name: 'jakarta.activation-api', version: '2.1.0'
             jaxb group: 'org.eclipse.angus', name: 'angus-activation', version: '1.0.0'
             jaxb group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api', version: '4.0.0'
-            jaxb group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '3.0.2'
+            jaxb group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '4.0.0'
 
             testFramework group: 'junit', name: 'junit', version: '4.13.2'
             testFramework group: 'org.assertj', name: 'assertj-core', version: '3.23.1'

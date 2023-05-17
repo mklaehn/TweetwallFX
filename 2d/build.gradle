@@ -25,4 +25,5 @@
 dependencies {
     implementation project(':tweetwallfx-configuration')
     implementation project(':tweetwallfx-controls')
+    implementation 'org.slf4j:slf4j-api'
 }

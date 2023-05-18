@@ -29,7 +29,7 @@ jobs:
 
       # Validate wrapper
       - name: Gradle Wrapper Validation
-        uses: gradle/wrapper-validation-action@v1.0.5
+        uses: gradle/wrapper-validation-action@v1.0.6
 
       # Setup JDK environment for the next steps
       - name: Setup JDK 17
@@ -41,7 +41,7 @@ jobs:
 
       # Run dependencyUpdates task
       - name: Run dependencyUpdates task
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v2.4.2
         with:
           arguments: --no-daemon --refresh-dependencies dependencyUpdates
 
@@ -55,7 +55,7 @@ jobs:
 
       # Run dependency-analysis task
       - name: Run dependency-analysis task
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v2.4.2
         with:
           arguments: --no-daemon --refresh-dependencies buildHealth
 

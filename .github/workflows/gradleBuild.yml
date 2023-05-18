@@ -28,6 +28,7 @@ jobs:
           - '17'
           - '18'
           - '19'
+          - '20'
         distribution:
           - 'zulu'
 
@@ -41,31 +42,31 @@ jobs:
 
       # Validate wrapper
       - name: Gradle Wrapper Validation
-        uses: gradle/wrapper-validation-action@v1.0.5
+        uses: gradle/wrapper-validation-action@v1.0.6
 
       # Setup JDK environment for the next steps
-      - name: Setup ${{ matrix.distribution }} JDK 17 for gradle
+      - name: Setup ${{ matrix.distribution }} JDK ${{ matrix.jdk }} for gradle
         uses: actions/setup-java@v3
         with:
           distribution: ${{ matrix.distribution }}
-          java-version: 17
+          java-version: ${{ matrix.jdk }}
           cache: gradle
 
       # Run assemble tasks
       - name: Run assemble tasks with toolchain JDK ${{ matrix.jdk }}
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v2.4.2
         with:
           arguments: --no-daemon --refresh-dependencies --warning-mode all assemble
 
       # Run test tasks
       - name: Run test tasks with toolchain JDK ${{ matrix.jdk }}
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v2.4.2
         with:
           arguments: --no-daemon --warning-mode all test
 
       # Run check tasks
       - name: Run check tasks with toolchain JDK ${{ matrix.jdk }}
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v2.4.2
         with:
           arguments: --no-daemon --warning-mode all check
 
@@ -84,7 +85,7 @@ jobs:
       # Run publish task
       - name: Run publish task
         if: ${{ (matrix.jdk == '17') && (github.event_name == 'push') && success() }}
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v2.4.2
         with:
           arguments: --no-daemon --warning-mode all publish
         env:
